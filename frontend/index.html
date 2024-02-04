@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 8px solid #3498db;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: blue green transparent transparent;
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body style="background-color: rgb(209, 247, 229);">
+    <script>
+        function handleButtonClick(buttonId) {
+            if (buttonId === 'button2') {
+                document.getElementById("buttons").style.display = "none";
+                document.getElementById("loading").style.display = "block";
+                setTimeout(function () {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("buttons").style.display = "block";
+                }, 30000); // Adjust the time as needed
+            }
+            // Add additional handling for other buttons if needed
+        }
+    </script>
+
+    <div id="pdf-insert-text">
+        <h1 class="pdf-insert-here-word"><u>Please upload Pdf Notes here.</u></h1>
+    </div>
+    <div id="pdf-insert-area" class="flexbox">
+        <div id="pdf-insert-here-area" class="pdf-insert-here-area">
+            <div id="upload-pdf-button">
+                <div>
+                    <form method="post" enctype="multipart/form-data" action="#">   
+                        <div class="input-group" id="buttons">
+                            <button onclick="handleButtonClick('button1')" class="upload-button"><input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload"></button>
+                            <button onclick="handleButtonClick('button2')" class="upload-button" type="button" id="inputGroupFileAddon04">Generate Questions</button>
+                        </div>  
+                        <div id="loading">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </form>
+                </div>
+                <script src="./script.js"></script>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div id="Question-text"><h1 class="question-text"><u>Here are the questions:</u></h1></div>
+    <div id="question-area" class="flexbox">
+        <div class="question-area">
+            <div id="Questions-goes-here" class="question-box"></div>
+        </div>    
+    </div>
+
+</body>
+
+</html>
+
+
+

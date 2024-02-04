@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .results {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: rgb(246, 207, 146);
+            display: none;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: block;
+        }
+
+        .answers-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #questions {
+            background-color: rgb(255, 183, 0);
+            margin: auto;
+            height: 50%;
+            border-style: solid;
+            border-width: 1px;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .answers {
+            background-color: rgb(246, 207, 146);
+            width: 100%;
+            height: 12.5%;
+            border-style: solid;
+            border-width: 1px;
+            transition: transform 0.1s ease;
+        }
+        .answers:hover {
+            transform: scale(1.05);
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container" id="quiz">
+            <header id="questions">
+                What is Continental Drift?
+            </header>
+        
+        
+        <div class="answers-container">
+            <button onclick="changeQuestion('A')" id="answers1" class="answers">
+                Answer 1
+            </button>
+            <button onclick="changeQuestion('B')" id="answers2" class="answers">
+                Answer 2
+            </button>
+            <button onclick="changeQuestion('C')" id="answers3" class="answers">
+                Answer 3
+            </button>
+            <button onclick="changeQuestion('D')" id="answers4" class="answers">
+                Answer 4
+            </button>
+        </div>
+    </div>
+    <div class="results" id="result">
+        Results
+    </div> 
+    <script>
+        let questionkey = ['1. What is Continental Drift?',
+        '2. What are Plate Boundaries?',
+        '3. What happens at Convergent Plate Boundaries?',
+        '4. Who mapped the Mid-Atlantic Ridge?',
+        '5. How is the Oceanic Crust made?',
+        '6. What is Decompression Melting?',
+        "7. What is the Earth's Structure?",
+        '8. What is the function of Convection in the Mantle and Outer Core?',
+        '9. Why does Subduction Destroy the Lithosphere?',
+        '10. What is the concept of Continental Drift?'];
+        let answerchoices = [[
+            'a. The process where continents move apart',
+            'b. The process where continents sink under and melt',
+            'c. The process where continents were once together and have moved apart',
+            'd. The process where continents merge together and form one supercontinent'
+        ],
+        [
+            'a. Lines on a map that show where tectonic plates meet',
+            'b. The edges of a continent',
+            'c. Separation lines between two oceans',
+            "d. The points where the Earth's crust meets the mantle"
+        ],
+        [
+            'a. Plates are created',
+            'b. Plates sink under and melt',
+            'c. Plates are neither lost or gained',
+            'd. None of the above'
+        ],
+        [
+            'a. Marie Curie',
+            'b. Marie Antoinette',
+            'c. Marie Tharp',
+            'd. Mary Tyler Moore'
+        ],
+        [
+            'a. By decompression melting',
+            'b. By subduction',
+            'c. By transform fault boundaries',
+            'd. By divergent plate boundaries'
+        ],
+        [
+            'a. A process where gas turns into a solid',
+            'b. A process where solid turns into a gas',
+            'c. A process where pressure decreases and a material reaches its melting point',
+            'd. A process where a molecule splits into smaller molecules'
+        ],
+        [
+            'a. Inner core, outer core, mantle, and lithosphere',
+            'b. Inner core, outer core, mantle, and crust',
+            'c. Outer core, mantle, crust and ocean floor',
+            'd. Inner core, outer core, crust and ocean floor'
+        ],
+        [
+            "a. Influences the movement of lithospheric plates and the Earth's magnetic field",
+            'b. Forms new parts of the lithosphere',
+            'c. Destroys the lithosphere',
+            'd. None of the above'
+        ],
+        [
+            'a. Because plates are neither lost or gained',
+            'b. Because plates sink under and melt',
+            'c. Because plates are created',
+            'd. None of the above'
+        ],
+        [
+            'a. Suggests that continents were once united',
+            'b. Suggests that continents are never united',
+            'c. Suggests that continents only move horizontally',
+            'd. None of the above'
+        ]];
+        let answerkey = [3,1,2,3,1,3,2,1,2,1];
+
+        console.log(questionkey);
+        console.log(answerchoices);
+        console.log(answerkey);
+        // let q1;
+        // let a1;
+        // let ak1;
+        // fetch('/get-question-key')
+        // .then(response=>response.json())
+        // .then((questionkey)=> {q1=questionkey});
+        // fetch('/get-answer-choices')
+        // .then(response=>response.json())
+        // .then(answerchoices=>a1.push(answerchoices));
+        // fetch('/get-answer-key')
+        // .then(response=>response.json())
+        // .then(answerkey=>ak1.push(answerkey));
+        // console.log(q1);
+        // console.log(a1);
+        // console.log(ak1);
+        let questionNumber = 0;
+        let answerSheet = [];
+        document.getElementById("questions").innerText = questionkey[questionNumber];
+        changeAnswers(questionNumber);
+
+        function changeQuestion(ans) {
+            questionNumber += 1;
+            
+            if (ans == 'A') {
+                answerSheet.push(1);
+            }
+            else if (ans == 'B') {
+                answerSheet.push(2);
+            }
+            else if (ans == 'C') {
+                answerSheet.push(3);
+            }
+            else if (ans == 'D') {
+                answerSheet.push(4);
+            }
+            
+
+            if (questionNumber > 9) {
+                calculateScore();
+                document.getElementById("answers1").innerText = ""
+                document.getElementById("answers2").innerText = ""
+                document.getElementById("answers3").innerText = ""
+                document.getElementById("answers4").innerText = ""
+            }
+            else {
+                document.getElementById("questions").innerText = questionkey[questionNumber];
+                changeAnswers(questionNumber);
+            }
+        }
+
+        function changeAnswers(qn) {
+            document.getElementById("answers1").innerText = answerchoices[qn][0];
+            document.getElementById("answers2").innerText = answerchoices[qn][1];
+            document.getElementById("answers3").innerText = answerchoices[qn][2];
+            document.getElementById("answers4").innerText = answerchoices[qn][3];
+        }
+
+        function calculateScore() {
+            let score = 0;
+            for (i=0; i < answerSheet.length; i++) {
+                if (answerSheet[i] == answerkey[i]) {
+                    score += 1;
+                }
+            }
+            document.getElementById("questions").innerText = "Your score is " + score + "/10!";
+        }
+    </script>
+</body>
+
+</html>
