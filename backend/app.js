@@ -10,6 +10,7 @@ let answerchoices = [];
 let answerkey = [];
 let parsedquiz = [];
 let gptDone = false;
+let quizData;
 
 
 
@@ -33,6 +34,16 @@ app.get('/', (req, res) => {
     res.render("index");
 });
 
+app.get('/index', (req, res)=>{
+    res.render("index");
+});
+app.get('/answers',(req,res)=>{
+    res.render('answers');
+})
+//test upload function
+// app.post("/upload", (req,res)=>{
+//     res.render("webpage");
+// })
 app.post("/upload", (req, res) => {
     upload(req, res, (err) => {
         if (err) {
@@ -62,7 +73,7 @@ app.post("/upload", (req, res) => {
                 .then(quiz=>{
                     console.log(quiz);
                     //this parses the gpt output into lists to add into webpage
-                    parsedquiz = quiz.split(/\r?\n/);
+                    parsedquiz = quiz.split(/\r?\n/); //regex
                     answerkey = parsedquiz.splice(-10);
                     console.log(parsedquiz);
                     for (i=0;i<58;i+=6) {
@@ -79,15 +90,15 @@ app.post("/upload", (req, res) => {
                     console.log("this is the answer key");
                     console.log(answerkey);
 
+                    quizData = {
+                        questions: questionkey,
+                        choices: answerchoices,
+                        answers: answerkey
+                    }
 
-                    module.exports = {
-                        questionkey,
-                        answerchoices,
-                        answerkey
-                    };
                     gptDone = true;
                     res.render("webpage");
-                    console.log(questionkey[0]);
+                    
                 })
                 .catch(error=>{
                     console.error('Error', error);
@@ -100,26 +111,14 @@ app.post("/upload", (req, res) => {
 
     });
 });
+//TODO
+//WHEN YOU GET THE THREE DATA TYPES PUT IT IN QUIZ DATA AND HAVE THE KEY
 
-// const exportvars = [
-//     questionkey,
-//     answerchoices,
-//     answerkey
-// ];
+app.get('/get-quiz', (req,res)=>{
+    res.json(quizData);
+})
 
-// export {exportvars};
-
-app.get('/get-question-key', (req,res)=>{
-    res.json(questionkey);
-})
-app.get('/get-answer-choices', (req,res)=>{
-    res.json(answerchoices);
-})
-app.get('/get-answer-key', (req,res)=>{
-    res.json(answerkey);
-})
 
 const PORT = 3000;
 
 app.listen(PORT, () => console.log(`Hey, I'm running on port ${PORT}`));
-

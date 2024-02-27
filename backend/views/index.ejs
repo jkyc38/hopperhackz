@@ -45,7 +45,7 @@
 </head>
 <body style="background-color: rgb(209, 247, 229);">
     <script>
-        localStorage.getItem
+        
         function handleButtonClick(buttonId) {
             if (buttonId === 'button') {
                 document.getElementById("buttons").style.display = "none";
@@ -66,23 +66,14 @@
         <div id="pdf-insert-here-area" class="pdf-insert-here-area">
             <div id="upload-pdf-button">
                 <div id="buttons">
-                    <!-- <form action="/upload" method="post" enctype="multipart/form-data">   
-                        <div class="input-group" id="buttons">
-                            <button onclick="handleButtonClick('button1')" class="upload-button">
-                                <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload">
-                            </button>
-                            <button class="upload-button" type="button" id="inputGroupFileAddon04" name="avatar">
-                                Generate Questions</button>
-                        </div> -->
                     <form action="/upload" method="POST" enctype="multipart/form-data">
                         <input type="file" name="avatar">
                         <button onclick="handleButtonClick('button')" type="submit"> Generate Questions </button>
                     </div>
                     <div id="loading">
-                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    <div class="lds-ring">
                     </div>
                     </form>
-                <script src="./script.js"></script>
             </div>
         </div>
     </div>
@@ -95,7 +86,7 @@
             <div id="Questions-goes-here" class="question-box"></div>
         </div>    
     </div> -->
-
+    <script src="./script.js"></script>
 </body>
 
 </html>

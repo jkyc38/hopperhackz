@@ -5,6 +5,7 @@ function gptPrompt(topic){
      `
 }
 
+
 module.exports = {
     gptPrompt
 }

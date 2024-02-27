@@ -2,10 +2,10 @@ const ocr = require('ocr-space-api-wrapper')
 const openai = require('openai')
 const prompt = require('./prompt')
 const ai = new openai.OpenAI({
-  apiKey: "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"
+  apiKey: OPENAI_KEY
 });
 
-OCR_APIKEY = "K84003519488957";
+OCR_APIKEY = OCR_KEY;
 let quiz;
 let topic;
 let questionkey = [];
@@ -28,42 +28,16 @@ async function chatgpt(topic){
   return results.choices[0].message.content;
 }
 
-async function main () {
-    try {
-        
-      // OCR FUNCTIONALITY
-      // topic = await ocrFunc(filename);
-    
-    
-      //CHAT GPT FUNCTIONALITY
-      topic = "smash bros";
-      quiz = await chatgpt(topic);
-
-    } catch (error) {
-      console.log("error");
-      console.error(error);
+ function main () {
+    try{
+      ocrFunc("./uploads/pic.png")
+      .then(result=>{
+        console.log(result);
+      })
     }
-
-
-    parsedquiz = quiz.split(/\r?\n/);
-
-    answerkey = parsedquiz.splice(-10);
-
-    console.log(parsedquiz);
-    
-    for (i=0;i<parsedquiz.length;i+=6) {
-      questionkey.push(parsedquiz[i]);
-      answerchoices.push(parsedquiz.slice(i+1, i+5));
+    catch(error){
+      console.error(error)
     }
-
-    console.log("this is the question key");
-    console.log(questionkey);
-
-    console.log("this is the answer choices");
-    console.log(answerchoices);
-
-    console.log("this is the answer key");
-    console.log(answerkey);
     
   }
 
